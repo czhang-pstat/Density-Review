@@ -1,0 +1,34 @@
+ function [haz] = lifetabsm(lifetab,method,kern,hbw,hout,trunc)
+ 
+ Input:
+   lifetab:  lifetable, a matrix as [aux1;aux2;aux3] which are
+                 aux1:  grid on which the lifetable is calculated
+                 aux2:  number of deaths
+                 aux3:  risk set
+   method:   indicator for mortality estimate
+                 method=1 returns q_c 
+                 method=2 returns psi(q_c) (default)
+   kern:     a character string for the kernel to be used
+                 'epan' : epanechikov kernel 
+                 'gauss' : gaussian kernel  (default)
+                 'rect' : rectangular kernel
+                 'quar' : quartic kernel
+   hbw:      bandwidth for hazard function
+                 hbw > 0:  user defined bandwidth
+                 hbw = 0:  cross-validation bandwidth (default)
+   hout:     output grid for smoothed hazard function.
+             default value is a grid of length 101 as
+             0:max(x)/100:max(x).                    
+   trunc:    positive integer; truncate the smoothed hazard function
+             at the time when the number of
+             subjects at risk is smaller than the threshold trunc.
+             default is no truncation applied (trunc=0).
+ 
+ Output:
+   haz:      a structure for the hazard estimation, includes the 
+             following values:
+                 hazfun:    hazard function estimated at hout
+                 hout:      output grid where hazard is estimated
+                 hbw:       bandwidth used in smoothing hazard function
+                 mratio:    empirical motality ratios
+                 mr_grid:   grid of the empirical morality ratios

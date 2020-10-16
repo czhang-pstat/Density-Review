@@ -1,0 +1,31 @@
+Package: WRI
+Type: Package
+Title: Wasserstein Regression Inference
+Version: 0.1.0
+Author: c(
+    person("Xi", "Liu", email = "xiliu@ucsb.edu", role = c("aut", "cre")),
+    person("Matthew", "Coleman", email = "matthewbcoleman@ucsb.edu", role = "aut"),
+    person("Alexander", "Petersen", email = "petersen@pstat.ucsb.edu", role = "aut"))
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: An implementation of global F tests, partial F tests, intrinsic 
+        Wasserstein-infinity bands and Wasserstein density bands in R.
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+LinkingTo: Rcpp, RcppArmadillo
+Imports: 
+    fdapace (>= 0.2.0),
+    fdadensity (>= 0.1.2),
+    Rfast (>= 1.9.8),
+    CVXR (>= 0.99.7),
+    expm (>= 0.999-4),
+    ggplot2 (>= 3.2.1),
+    Rcpp,
+    RcppArmadillo (>= 0.9.800.3.0),
+    locfit (>= 1.5-9.1),
+    mvtnorm (>= 1.1-0)
+RoxygenNote: 7.0.2
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
