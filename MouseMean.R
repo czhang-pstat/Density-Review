@@ -1,3 +1,7 @@
+### This script contains the steps to 
+### estimate the densities and means 
+### for the mouse data sets.
+
 ### Import Data Sets ###
 mouse1 = read.delim("./Data/Mouse/Mouse1.txt") # normal
 mouse2 = read.delim("./Data/Mouse/Mouse2.txt") # Ts1Cje

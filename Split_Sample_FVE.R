@@ -2,6 +2,16 @@
 ### Split Samples ###
 #####################
 
+#' Function for splitting samples.
+#' 
+#' @param  original_dens A matrix, the observed density functions.  Rows represent observations.
+#' @param  times A numeric value, number of times to split the samples.
+#' 
+#' @return A list that contains the row numbers of training and testing sets.
+#' @export
+#' 
+#######################################################
+
 Split = function(original_dens, times = 100) {
   Sample_Size = nrow(original_dens)
   
@@ -19,6 +29,24 @@ Split = function(original_dens, times = 100) {
 ########################
 ### Split Sample FVE ###
 ########################
+
+#' Function for FVE calculation.
+#' 
+#' @param  original_dens A matrix, the observed density functions.  Rows represent observations.
+#' @param  training_trsfmd_list A list of transformed densities for training.
+#' @param  testing_trsfmd_list A list of transformed densities for testing.
+#' @param  testing_ind A list of row numbers of the testing sets.
+#' @param  trsfm A string, methods of transformation for analysis.  Available options are "clr", "lqd", and "fr".
+#' @param  times A numeric value that indicates the number of times of sample splitting.
+#' @param  npc A numeric value that indicates the number of principle components used in FPCA.
+#' @param  dSup A numeric vector, the grid over which `original_dens` are evaluated.
+#' @param  FVE_metric A string that indicates the metric based on which the FVE is calculated.  Available options are "L2", "Wasserstein","Aitchison", and "FisherRao".
+#' @param  training_psi_list A list of the training set Frechet means under the Fisher-Rao metric.  It is provided to the function to imporve efficiency.
+#' 
+#' @return Boxplots of FVE analysis will be written into the current working directory.
+#' @export
+#' 
+#######################################################
 
 SplitFVE = function(original_dens, training_trsfmd_list, testing_trsfmd_list, testing_ind,
                     trsfm, times = 100, npc, dSup, FVE_metric, training_psi_list = NA) {
@@ -82,12 +110,16 @@ SplitFVE = function(original_dens, training_trsfmd_list, testing_trsfmd_list, te
   return(result)
 }
 
-### --------------------------------------------- ###
-#####################################################
+#######################################################
+#######################################################
 
 
 #####################################################
 ### --------------------------------------------- ###
+
+             ##########################
+             ### Start FVE Analysis ###
+             ##########################
 
 ### generate indices for training and testing samples
 
@@ -101,12 +133,6 @@ training_sample_list = lapply(training_ind, function(xx) original_dens[xx, ])
 testing_sample_list = lapply(testing_ind, function(xx) original_dens[xx, ])
 
 training_psi_list = lapply(training_sample_list, function(xx) Karcher_mean(xx, dSup, 1e-5, 1e-2)) # this is important to improve speed
-
-### --------------------------------------------- ###
-#####################################################
-
-#####################################################
-### --------------------------------------------- ###
 
 ##################
 ### FVE of clr ###
@@ -142,12 +168,6 @@ for(trsfm in c("clr")) {
   }
 }
 
-###-----------------------------------------------###
-#####################################################
-
-#####################################################
-### --------------------------------------------- ###
-
 ##################
 ### FVE of lqd ###
 ##################
@@ -174,13 +194,6 @@ for(trsfm in c("lqd")) {
   }
 }
 
-###-----------------------------------------------###
-#####################################################
-
-
-#####################################################
-### --------------------------------------------- ###
-
 #################
 ### FVE of fr ###
 #################
@@ -205,9 +218,7 @@ for(trsfm in c("fr")) {
   }
 }
 
-###-----------------------------------------------###
-#####################################################
-
+### Generate Boxplots ###
 
 trsfm_label = c(rep("clr", time = 100), rep("lqd", time = 100), rep("fr", time = 100))
 
@@ -225,4 +236,6 @@ for( mthd in c("L2","Wasserstein", "FisherRao", "Aitchison")) {
     dev.off()
   }
 }
+### --------------------------------------------- ###
+#####################################################
 

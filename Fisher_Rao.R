@@ -1,7 +1,17 @@
-### Fisher-Rao Geometry ###
+#' Function for implementing the Exponential mapping under the Fisher-Rao geometry.
+#' 
+#' @param  dSup A numeric vector, the density support.
+#' @param  psi_1 The Frechet mean under the Fisher-Rao geometry.
+#' @param  v A numeric vector, an element in the tangent space of psi_1.
+#' 
+#' @return A numeric value, the squared-root of the density that corresponds to v.
+#' 
+#' @export
+#' 
+#######################################################
 
 # exponential map of square-root density functions
-# v is an element in the tangent space of \psi_1
+# v is 
 fr_Exp_Map = function(dSup, v, psi1) {
   norm = sqrt(trapzRcpp(dSup, v^2))
   
@@ -19,7 +29,21 @@ fr_Exp_Map = function(dSup, v, psi1) {
   return(result_scaled)
 }
 
-# inverse exponential map of square-root density functions
+#######################################################
+#######################################################
+
+#' Function for implementing the inverse Exponential map of square-root density functions.
+#' 
+#' @param  dSup A numeric vector, the density support.
+#' @param  psi_1 The Frechet mean under the Fisher-Rao geometry.
+#' @param  psi_2 A numeric vector, a square-root density function.
+#' 
+#' @return A numeric vector, the tangent element that corresponds to psi_2.
+#' 
+#' @export
+#' 
+#######################################################
+# 
 # this function lifts \psi_2 to the tangent space of \psi_1
 fr_Log_Map = function(dSup, psi1, psi2) {
   u = psi2 - trapzRcpp(dSup, psi1*psi2)*psi1
@@ -34,6 +58,22 @@ fr_Log_Map = function(dSup, psi1, psi2) {
   else {result = rep(0, length(u))}
   return(result)
 }
+
+#######################################################
+#######################################################
+
+#' Function for implementing the Karcher mean.
+#' 
+#' @param  obs A matrix that contains the observed density functions.
+#' @param  dSup A numeric vector, the density support.
+#' @param  tolerance A numeric value, error threshold for algorithm convergence.
+#' @param  step_size A numeric value, the descending step size.
+#' 
+#' @return A numeric vector, the Karcher mean.
+#' 
+#' @export
+#' 
+#######################################################
 
 # function for finding Karcher mean
 # obs: observations, rows are observations

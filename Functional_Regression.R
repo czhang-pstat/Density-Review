@@ -1,3 +1,17 @@
+#' Function for functional regression.
+#' 
+#' @param  predictors A matrix, the design matrix (without intercept).
+#' @param  EE A logical value, set to `TRUE` to produce the effect plot of the Eastern European indicator.
+#' @param  dens A matrix, the density functions.  Rows represent observations.
+#' @param  trsfm A string, method of regrassion analysis.  Available options are "clr_spline", "lqd_pw", and "Frechet".
+#' @param  dSup A numeric vector, the density support.
+#' @param  CI A string, method of uncertainty analysis.  Available options are "pw" and "bootstrap".
+#' @param  new_df A matrix, new values of the predictors of the regression model.
+#' 
+#' @return The regression plots will be written under the current working directory and regression summaries will be printed to the screen.
+#' @export
+#' 
+#######################################################
 Regression_Analysis = function(predictors, EE = FALSE, dens, trsfm, dSup, CI, new_df) {
   
   ### Information shared by all cases ###
@@ -524,7 +538,4 @@ Regression_Analysis = function(predictors, EE = FALSE, dens, trsfm, dSup, CI, ne
   print(paste("clr R square: ", R2_clr, sep = ""))
   print(paste("Wasserstein R square: ", R2_wass, sep = ""))
 }
-
-
-Regression_Analysis(predictors = pred_df_E, dens = yr_2008_dens_reg, trsfm = "clr_spline", dSup = dSup, new_df = effect_inf, EE = TRUE)
 
