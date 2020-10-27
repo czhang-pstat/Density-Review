@@ -9,7 +9,8 @@ pckg = c("fda", "fdapace", "fdadensity", "R.matlab", "robCompositions", "colorsp
 slapply(labs, library, character.only = TRUE)
 
 # source scripts that contain utility functions
-util = c("Wasserstein_Metric.R", "Finite_Difference.R", "Density_Estimation.R", "CLR.R", "Fisher_Rao.R", "RegularizeByAlpha_GPCA.R", "densFVE.R")
+util = paste("./R/", c("Wasserstein_Metric.R", "Finite_Difference.R", "Density_Estimation.R", "CLR.R", "Fisher_Rao.R", "RegularizeByAlpha_GPCA.R", "densFVE.R"),
+             sep = "")
 sapply(util, source)
 
 WRI = list.files("./Others/WRI-master/R")
