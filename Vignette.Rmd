@@ -50,7 +50,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Overview and Initial Setup
 
-The aim of this document is to provide the an expanded version of the data analyses presented in the paper *Modeling Probability Density Functions as Data Objects* (hereinafter referred to as the `main paper').  These analyses also utilize the following source code and packages:
+The aim of this document is to provide the an expanded version of the data analyses presented in the paper *Modeling Probability Density Functions as Data Objects* (hereinafter referred to as the "main paper").  These analyses also utilize the following source code and packages:
 
 1. @caze:18 [source code](https://github.com/ecazelles/2017-GPCA-vs-LogPCA-Wasserstein).
 2. @petersen2020WRI [source code](https://github.com/LucyLiu-UCSB/WRI)^[Please contact the authors for source code as this repository is private as of this writing].
@@ -167,7 +167,7 @@ More details of the exponential map `fr_Exp_Map()` and logarithmic map `fr_Log_M
 Figure 2 demonstrates the mean densities obtained under the three aforementioned approaches along with the cross-sectional mean (i.e., ordinary functional mean).  As observed in the main paper, both the cross-sectional and Fisher-Rao means appear bimodal as they both attempt to average out pointwise behavior in the densities, or square-root densities. The unimodal Fréchet mean derived from the Bayes space and Wasserstein metrics are more representative of the sample.
 
 ```{r, echo=FALSE,out.width="60%", out.height="50%",fig.cap="Figure 2: Mean densities.",fig.show='hold',fig.align='center'}
-knitr::include_graphics(c("EDA_mouse1n2_means.png"))
+knitr::include_graphics(c("./Plots/EDA_mouse1n2_means.png"))
 ``` 
 
 ### 2. Modes of Variation Analysis
