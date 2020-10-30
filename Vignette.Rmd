@@ -76,7 +76,7 @@ The resulting density estimations are shown in Figure 1.
 knitr::include_graphics(c("./Plots/EDA_mouse1n2_dens.png"))
 ``` 
 
-One can observe that there are prominent location shits in density mode in both groups of mice.  The main paper also identified the height of the mode as a secondary source of variability.
+One can observe that there are prominent location shifts in density mode in both groups of mice.  The main paper also identified the height of the mode as a secondary source of variability.
 
 #### 1.2. Bayes Space
 
