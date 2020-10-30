@@ -99,8 +99,8 @@ for i=1:size(dens,1)
     tgnt_fitted(i,:) = logMap(dens_fitted_PC1(i,:),FBs,Omega,method);
 end
 
-writematrix(tgnt_fitted,"MdVar/GPCA_itr_tgnt_PC1.csv")
-writematrix(dens_fitted_PC1,"MdVar/GPCA_itr_dens_PC1.csv")
+writematrix(tgnt_fitted,"MdVar/gpca_fitted_tgnt_PC1.csv")
+writematrix(dens_fitted_PC1,"MdVar/gpca_fitted_dens_PC1.csv")
 %%
 dens_fitted_PC2 = zeros(size(dens,1),length(OmegaExt));
 for i=1:size(dens,1)
@@ -114,8 +114,8 @@ for i=1:size(dens,1)
     tgnt_fitted(i,:) = logMap(dens_fitted_PC2(i,:),FBs,Omega,method);
 end
 
-writematrix(tgnt_fitted,"MdVar/GPCA_itr_tgnt_PC2.csv")
-writematrix(dens_fitted_PC2,"MdVar/GPCA_itr_dens_PC2.csv")
+writematrix(tgnt_fitted,"MdVar/gpca_fitted_tgnt_PC2.csv")
+writematrix(dens_fitted_PC2,"MdVar/gpca_fitted_dens_PC2.csv")
 
 %%
 

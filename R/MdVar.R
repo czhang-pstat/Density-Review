@@ -3,7 +3,7 @@
 #' @param  origin_dens Matrix of the original densities.
 #' @param  dSup Density support, a numeric vector.
 #' @param  method Method: "clr", "lqd", "GPCA".
-#' @param  wd A string of the path of your current working directory.
+#' @param  wd A string of the path of your current working directory, only needed for GPCA.
 #' @param  numCores An integer, number of cores to be used when performing clr transformation; default value is 1.
 #' 
 #' @return The first 2 modes of variation plot will be written to the current working directory.
@@ -104,9 +104,9 @@ MdVar = function(origin_dens, dSup, method, numCores = 1, wd = NA) {
                  main=bquote("Modes of Variation,"~alpha~"= 0, \U00B1 1, \U00B1 2"),
                  xlab='age', ylab='density', cex.lab = 1.2, cex.axis = 1.2)
 
-    pdf(file = paste("MdVar_", method, "_dens_ModesofVariation_PC_", i, ".pdf", sep = ""), width = 6.75, height = 5)
+    #pdf(file = paste("MdVar_", method, "_dens_ModesofVariation_PC_", i, ".pdf", sep = ""), width = 6.75, height = 5)
     
-    #png(file = paste("MdVar_", method, "_dens_ModesofVariation_PC_", i, ".png", sep = ""), width = 640, height = 480)
+    png(file = paste("MdVar_", method, "_dens_ModesofVariation_PC_", i, ".png", sep = ""), width = 640, height = 480)
 
     par(mar = c(5, 5, 2, 2)+0.3)
 
@@ -146,7 +146,7 @@ MdVar = function(origin_dens, dSup, method, numCores = 1, wd = NA) {
     
     origin_dens_drglrzd = apply(origin_dens, 1, function(xx) DeregulariseByAlpha(dSup, xx))
     origin_dens_GPCA = t(apply(origin_dens_drglrzd, 2, function(xx) RegulariseByAlpha_GPCA(dSup, xx)))
-    write.csv(original_dens_GPCA, paste(wdFile, "original_dens.csv", sep = ""))
+    write.csv(origin_dens_GPCA, paste(wdFile, "original_dens.csv", sep = ""))
     
     run_matlab_script(paste(wdScript,"MdVar.m", sep = ""))
     
@@ -166,9 +166,9 @@ MdVar = function(origin_dens, dSup, method, numCores = 1, wd = NA) {
                    main=bquote("Modes of Variation: GPCA;"~alpha~"= 0, \U00B1 1, \U00B1 2"),
                    xlab='age', ylab='density', cex.lab = 1.2, cex.axis = 1.2)
       
-      pdf(file = paste("MdVar_", method, "_dens_ModesofVariation_PC_", i, ".pdf", sep = ""), width = 6.75, height = 5)
+      #pdf(file = paste("MdVar_", method, "_dens_ModesofVariation_PC_", i, ".pdf", sep = ""), width = 6.75, height = 5)
       
-      #png(file = paste("MdVar_", method, "_dens_ModesofVariation_PC_", i, ".png", sep = ""), width = 640, height = 480)
+      png(file = paste("MdVar_", method, "_dens_ModesofVariation_PC_", i, ".png", sep = ""), width = 640, height = 480)
       
       par(mar = c(5, 5, 2, 2)+0.3)
       
@@ -190,14 +190,14 @@ MdVar = function(origin_dens, dSup, method, numCores = 1, wd = NA) {
       
       ### fitted data ###
       
-      fitted_gpca = t(eval(parse(text = paste("gpca_fitted_tgnt_PC", i, sep = ""))))
+      fitted_gpca = as.matrix(read.csv(paste(wdFile, "gpca_fitted_tgnt_PC", i, ".csv", sep = ""), header = FALSE))[,2:91]
       
-      fitted_gpca_dens = t(eval(parse(text = paste("gpca_fitted_dens_PC", i, sep = ""))))
+      fitted_gpca_dens = as.matrix(read.csv(paste(wdFile, "gpca_fitted_dens_PC", i, ".csv", sep = ""), header = FALSE))[,2:91]
       
-      fitted_gpca_dens = apply(fitted_gpca_dens, 2, function(xx) xx/trapzRcpp(dSup,xx))
+      fitted_gpca_dens = apply(fitted_gpca_dens, 1, function(xx) xx/trapzRcpp(dSup,xx))
       
-      pdf(file = paste("MdVar_", method, "_dens_fitted_PC_", i, ".pdf", sep = ""), width = 6.75, height = 5)
-      #png(file = paste("MdVar_", method, "_dens_fitted_PC_", i, ".png", sep = ""), width = 640, height = 480)
+      #pdf(file = paste("MdVar_", method, "_dens_fitted_PC_", i, ".pdf", sep = ""), width = 6.75, height = 5)
+      png(file = paste("MdVar_", method, "_dens_fitted_PC_", i, ".png", sep = ""), width = 640, height = 480)
       
       par(mar = c(5, 5, 2, 2)+0.3)
       matplot(dSup, fitted_gpca_dens, type='l', lty = 1, col = sequential_hcl(23, "ag_Sunset"),

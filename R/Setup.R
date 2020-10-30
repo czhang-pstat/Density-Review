@@ -4,12 +4,14 @@
 # Assign your working directory path string to the variable wd.
 wd = "~/Documents/FDA/MKII/Code"
 
+setwd(wd)
+
 # load libraries
 pckg = c("fda", "fdapace", "fdadensity", "R.matlab", "robCompositions", "colorspace", "plot.matrix", "Rcpp", "matlabr")
-slapply(labs, library, character.only = TRUE)
+sapply(pckg, library, character.only = TRUE)
 
 # source scripts that contain utility functions
-util = paste("./R/", c("Wasserstein_Metric.R", "Finite_Difference.R", "Density_Estimation.R", "CLR.R", "Fisher_Rao.R", "RegularizeByAlpha_GPCA.R", "densFVE.R"),
+util = paste("./R/", c("Wasserstein_Metric.R", "Finite_Difference.R", "Density_Estimation.R", "CLR.R", "Fisher_Rao.R", "RegularizeByAlpha_GPCA.R", "densFVE.R", "MdVar.R"),
              sep = "")
 sapply(util, source)
 
