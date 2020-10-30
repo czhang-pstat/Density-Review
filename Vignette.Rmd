@@ -4,7 +4,7 @@ author:
   - Alexander Petersen^[Department of Statistics, Brigham Young University, UT, USA; Department of Statistics and Applied Probability,  Uiversity of California, SantaBarbara, USA]
   - Chao Zhang^[Department of Statistics and Applied Probability,  Uiversity of California, SantaBarbara, USA]
   - Piotr Kokoszka^[Department of Statistics, Colorado State University, Fort Collins, CO, USA]
-date: "10/27/2020"
+date: "10/30/2020"
 output: html_document
 bibliography: references.bib
 header-includes:
