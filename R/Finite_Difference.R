@@ -10,7 +10,7 @@
 
 Finite_Diff = function(x, y) {
   n = length(x)
-  fdx = vector(length = n)
+  dx = vector(length = n)
   
   # finite difference
   for (i in 2:n) {
@@ -20,7 +20,7 @@ Finite_Diff = function(x, y) {
   # set the last derivative equal to the adjacent value
   dx[n] = dx[n-1]
   
-  return(fdx)
+  return(dx)
 }
 
 #######################################################
