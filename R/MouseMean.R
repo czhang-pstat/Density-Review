@@ -24,8 +24,8 @@ mouse1_dSup = mouse1_dens_list[[2]]
 
 mouse1_dens = t(apply(mouse1_dens, 1, function(xx) RegulariseByAlpha(mouse1_dSup, xx, alpha = 0.01)))
 
-mouse2_dens = t(mouse2_dens_lst[[1]])
-mouse2_dSup = mouse2_dens_lst[[2]]
+mouse2_dens = t(mouse2_dens_list[[1]])
+mouse2_dSup = mouse2_dens_list[[2]]
 
 mouse2_dens = t(apply(mouse2_dens, 1, function(xx) RegulariseByAlpha(mouse2_dSup, xx, alpha = 0.01)))
 
@@ -83,14 +83,14 @@ qSup = seq(0,1,length.out = length(mouse1_dSup))
 ### Normal ###
 wass_mean1 = rowMeans(apply(mouse1_dens, 1, function(xx) dens2quantile(xx, dSup = mouse1_dSup)))
 
-wass_mean1_dens = finite.differences(wass_mean1, qSup)
+wass_mean1_dens = Finite_Diff(wass_mean1, qSup)
 
 wass_mean1_dens = wass_mean1_dens/trapzRcpp(wass_mean1, wass_mean1_dens)
 
 ### Ts1Cje ###
 wass_mean2 = rowMeans(apply(mouse2_dens, 1, function(xx) dens2quantile(xx, dSup = mouse2_dSup)))
 
-wass_mean2_dens = finite.differences(wass_mean2, qSup)
+wass_mean2_dens = Finite_Diff(wass_mean2, qSup)
 
 wass_mean2_dens = wass_mean2_dens/trapzRcpp(wass_mean2, wass_mean2_dens)
 
@@ -105,9 +105,7 @@ cs_mean1 = colMeans(mouse1_dens)
 cs_mean2 = colMeans(mouse2_dens)
 
 
-pdf(file = paste("EDA_mouse1_means.pdf", sep = ""),
-    width = 6.75, # The width of the plot in inches
-    height = 5) # The height of the plot in inches
+pdf(file = paste("EDA_mouse1_means.pdf", sep = ""), width = 6.75, height = 5)
 
 par(mar = c(4.5, 5, 2, 9.2)+0.1)
 
@@ -129,9 +127,7 @@ legend("right",inset=c(-0.46,0), legend=sapply(labels, as.expression), col=c("#0
 
 dev.off()
 
-pdf(file = paste("EDA_mouse2_means.pdf", sep = ""),
-    width = 6.75, # The width of the plot in inches
-    height = 5) # The height of the plot in inches
+pdf(file = paste("EDA_mouse2_means.pdf", sep = ""), width = 6.75, height = 5)
 
 par(mar = c(4.5, 5, 2, 9.2)+0.1)
 
@@ -152,9 +148,7 @@ legend("right",inset=c(-0.46,0), legend=sapply(labels, as.expression), col=c("#0
 
 dev.off()
 
-pdf(file = paste("EDA_mouse1_dens.pdf", sep = ""),
-    width = 6.75, # The width of the plot in inches
-    height = 5) # The height of the plot in inches
+pdf(file = paste("EDA_mouse1_dens.pdf", sep = ""), width = 6.75, height = 5)
 
 par(mar = c(5, 4, 2, 2)+0.1)
 
@@ -164,9 +158,7 @@ grid()
 
 dev.off()
 
-pdf(file = paste("EDA_mouse2_dens.pdf", sep = ""),
-    width = 6.75, # The width of the plot in inches
-    height = 5) # The height of the plot in inches
+pdf(file = paste("EDA_mouse2_dens.pdf", sep = ""), width = 6.75, height = 5)
 
 par(mar = c(5, 4, 2, 2)+0.1)
 
@@ -177,9 +169,7 @@ grid()
 dev.off()
 
 #############################################################
-pdf(file = paste("EDA_mouse1n2_means.pdf", sep = ""),
-    width = 6.75, # The width of the plot in inches
-    height = 5) # The height of the plot in inches
+pdf(file = paste("EDA_mouse1n2_means.pdf", sep = ""), width = 6.75, height = 5)
 
 par(mar = c(4, 5, 1, 5)+0.1, mfrow = c(2,1), oma = c(0, 0, 0, 4))
 
@@ -202,7 +192,7 @@ par(xpd = NA)
 
 labels = c("CLR","Fisher-Rao","Wasserstein","Cross-Sectional")
 
-legend(x=10.6, y=2.4, legend=sapply(labels, as.expression), col=c("#009B9F", "blue","#c913ed","#fa9b1e"), lty=1, lwd=1.5, cex = 0.9)
+legend(x=10.6, y=3, legend=sapply(labels, as.expression), col=c("#009B9F", "blue","#c913ed","#fa9b1e"), lty=1, lwd=1.5, cex = 0.9)
 
 
 dev.off()

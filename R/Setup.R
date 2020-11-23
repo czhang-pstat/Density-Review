@@ -11,7 +11,7 @@ pckg = c("fda", "fdapace", "fdadensity", "R.matlab", "robCompositions", "colorsp
 sapply(pckg, library, character.only = TRUE)
 
 # source scripts that contain utility functions
-util = paste("./R/", c("Wasserstein_Metric.R", "Finite_Difference.R", "Density_Estimation.R", "CLR.R", "Fisher_Rao.R", "RegularizeByAlpha_GPCA.R", "densFVE.R", "MdVar.R"),
+util = paste("./R/", c("Wasserstein_Metric.R", "Finite_Difference.R", "Density_Estimation.R", "CLR.R", "Fisher_Rao.R", "RegularizeByAlpha_GPCA.R", "densFVE.R", "MdVar.R", "Functional_Regression.R"),
              sep = "")
 sapply(util, source)
 

@@ -125,6 +125,8 @@ SplitFVE = function(original_dens, training_trsfmd_list, testing_trsfmd_list, te
 
 times = 100 # number of pairs of the split samples
 
+original_dens = yr_2008_dens
+
 Split_ind = Split(original_dens = original_dens)
 training_ind = Split_ind[[1]]
 testing_ind = Split_ind[[2]]
@@ -225,12 +227,12 @@ trsfm_label = c(rep("clr", time = 100), rep("lqd", time = 100), rep("fr", time =
 boxcolors = c("#B3ADB8", "#CF9FAB","#E6E4E2")
 for( mthd in c("L2","Wasserstein", "FisherRao", "Aitchison")) {
   for(i in 1:2) {
-    filename = paste("box",mthd,i,"pc.png", sep ="_")
+    filename = paste("box",mthd,i,"pc.pdf", sep ="_")
     dfnames = paste(c("boxdf_clr_PC","boxdf_lqd_PC", "boxdf_fr_PC"), i, "_", mthd,sep = "")
     tmp = data.frame(FVE =c(eval(parse(text = dfnames[1])),eval(parse(text = dfnames[2])), eval(parse(text = dfnames[3]))), method = trsfm_label)
     
-    #pdf(file = filename, 6.75,5)
-    png(file = filename, 640, 480)
+    pdf(file = filename, 6.75,5)
+    #png(file = filename, 640, 480)
     par(mar = c(5,5,2,2)+0.1)
     boxplot(data=tmp, FVE~method, cex.lab = 1.2, cex.axis = 1.2, col = boxcolors, ylim = c(0.8,1))
     dev.off()

@@ -59,9 +59,9 @@ rownames(yr_2008_dens) = ctry_abr
 yr_2008_dens_reg = yr_2008_dens[-which(ctry_abr == "TWN"), ]
 
 
-GDP = read.csv("../Data/Econ/GDP_WB.csv", header = TRUE)
-INF = read.csv("../Data/Econ/INF_WB.csv", header = TRUE)
-UEM = read.csv("../Data/Econ/UEM_WB.csv", header = TRUE)
+GDP = read.csv("./Data/Econ/GDP_WB.csv", header = TRUE)
+INF = read.csv("./Data/Econ/INF_WB.csv", header = TRUE)
+UEM = read.csv("./Data/Econ/UEM_WB.csv", header = TRUE)
 
 rownames(GDP) = GDP[,2]
 GDP = GDP[,-c(1, 2)]
@@ -109,25 +109,26 @@ effect_EE = data.frame(gdp = rep(mean(pred_df$gdp), 2),
                      EE = c(1,0))
 
 # original Eastern European countries plot
-# pdf(file = paste("original_dens_E.pdf", sep = ""), width = 6.75, height = 5)
-png(file = paste("original_dens_E.png", sep = ""), width = 640, height = 480)
+pdf(file = paste("original_dens_E.pdf", sep = ""), width = 6.75, height = 5)
+#png(file = paste("original_dens_E.png", sep = ""), width = 640, height = 480)
 
 par(mar = c(5, 5, 2, 9)+0.1)
 
 lb = range(as.vector(yr_2008_dens_reg))[1]
 ub = range(as.vector(yr_2008_dens_reg))[2]
 
-do.call(matplot, c(list(type='n'), list(x=dSup), list(main = "Observed Sample Densities"), list(y=seq(lb, ub, length.out = length(dSup))), args))
+do.call(matplot, list(type='n', x=dSup, y=seq(lb, ub, length.out = length(dSup)), main = "Observed Sample Densities", xlab="age", ylab="", cex.lab = 1.2, cex.axis = 1.2))
 
 grid()
 
-matlines(dSup, t(yr_2008_dens_reg), col = ifelse(ctry_abr[] %in% c("BLR", "BGR", "CZE", "HUN", "POL", "RUS", "SVK", "UKR", "EST", "LTU", "LVA"), "#009B9F", "#EE3A8C"), lwd = 1.2,
+matlines(dSup, t(yr_2008_dens_reg), col = ifelse(ctry_abr[] %in% c("BLR", "BGR", "CZE", "HUN", "POL", "RUS", "SVK", "UKR", "EST", "LTU", "LVA"), "#009B9F", "#EE3A8C"), 
+         lwd = 1.2,
          lty = 1)
 
 par(xpd = TRUE)
 
 labels = c("East. Europe", "Others")
 
-legend("right",inset=c(-0.28,0), legend=sapply(labels, as.expression), col=c("#009B9F", "#EE3A8C"), lty=1, lwd=1.5, cex = 1)
+legend("right",inset=c(-0.43,0), legend=sapply(labels, as.expression), col=c("#009B9F", "#EE3A8C"), lty=1, lwd=1.5, cex = 1)
 
 dev.off()

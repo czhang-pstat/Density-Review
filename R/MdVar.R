@@ -104,9 +104,9 @@ MdVar = function(origin_dens, dSup, method, numCores = 1, wd = NA) {
                  main=bquote("Modes of Variation,"~alpha~"= 0, \U00B1 1, \U00B1 2"),
                  xlab='age', ylab='density', cex.lab = 1.2, cex.axis = 1.2)
 
-    #pdf(file = paste("MdVar_", method, "_dens_ModesofVariation_PC_", i, ".pdf", sep = ""), width = 6.75, height = 5)
+    pdf(file = paste("MdVar_", method, "_dens_ModesofVariation_PC_", i, ".pdf", sep = ""), width = 6.75, height = 5)
     
-    png(file = paste("MdVar_", method, "_dens_ModesofVariation_PC_", i, ".png", sep = ""), width = 640, height = 480)
+    #png(file = paste("MdVar_", method, "_dens_ModesofVariation_PC_", i, ".png", sep = ""), width = 640, height = 480)
 
     par(mar = c(5, 5, 2, 2)+0.3)
 
@@ -125,8 +125,8 @@ MdVar = function(origin_dens, dSup, method, numCores = 1, wd = NA) {
     dev.off()
 
     ### fitted densities ###
-    #pdf(file = paste("MdVar_", method, "_dens_fitted_PC_", i, ".pdf", sep = ""), width = 6.75, height = 5)
-    png(file = paste("MdVar_", method, "_dens_fitted_PC_", i, ".png", sep = ""), width = 640, height = 480)
+    pdf(file = paste("MdVar_", method, "_dens_fitted_PC_", i, ".pdf", sep = ""), width = 6.75, height = 5)
+    #png(file = paste("MdVar_", method, "_dens_fitted_PC_", i, ".png", sep = ""), width = 640, height = 480)
     par(mar = c(5, 5, 2, 2)+0.3)
     matplot(dSup, fitted_dens, type='l', lty = 1, col = sequential_hcl(23, "ag_Sunset"),
             main=bquote("Fitted densities: LQD,"~.(i)~"PC(s)"),
@@ -166,9 +166,9 @@ MdVar = function(origin_dens, dSup, method, numCores = 1, wd = NA) {
                    main=bquote("Modes of Variation: GPCA;"~alpha~"= 0, \U00B1 1, \U00B1 2"),
                    xlab='age', ylab='density', cex.lab = 1.2, cex.axis = 1.2)
       
-      #pdf(file = paste("MdVar_", method, "_dens_ModesofVariation_PC_", i, ".pdf", sep = ""), width = 6.75, height = 5)
+      pdf(file = paste("MdVar_", method, "_dens_ModesofVariation_PC_", i, ".pdf", sep = ""), width = 6.75, height = 5)
       
-      png(file = paste("MdVar_", method, "_dens_ModesofVariation_PC_", i, ".png", sep = ""), width = 640, height = 480)
+      #png(file = paste("MdVar_", method, "_dens_ModesofVariation_PC_", i, ".png", sep = ""), width = 640, height = 480)
       
       par(mar = c(5, 5, 2, 2)+0.3)
       
@@ -196,8 +196,8 @@ MdVar = function(origin_dens, dSup, method, numCores = 1, wd = NA) {
       
       fitted_gpca_dens = apply(fitted_gpca_dens, 1, function(xx) xx/trapzRcpp(dSup,xx))
       
-      #pdf(file = paste("MdVar_", method, "_dens_fitted_PC_", i, ".pdf", sep = ""), width = 6.75, height = 5)
-      png(file = paste("MdVar_", method, "_dens_fitted_PC_", i, ".png", sep = ""), width = 640, height = 480)
+      pdf(file = paste("MdVar_", method, "_dens_fitted_PC_", i, ".pdf", sep = ""), width = 6.75, height = 5)
+      #png(file = paste("MdVar_", method, "_dens_fitted_PC_", i, ".png", sep = ""), width = 640, height = 480)
       
       par(mar = c(5, 5, 2, 2)+0.3)
       matplot(dSup, fitted_gpca_dens, type='l', lty = 1, col = sequential_hcl(23, "ag_Sunset"),

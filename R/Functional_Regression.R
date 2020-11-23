@@ -79,7 +79,7 @@ Regression_Analysis = function(predictors, EE = FALSE, dens, trsfm, dSup, CI, ne
     dens_fitted = t(apply(Y_hat, 1, function(xx) clr2dens(dSup, xx)))
     
     # effect
-    Y_effect = as.matrix(cbind(rep(1, time = 9),new_df)) %*% B %*% Theta
+    Y_effect = as.matrix(cbind(rep(1, time = nrow(new_df)),new_df)) %*% B %*% Theta
     
     Y_effect_dens = t(apply(Y_effect, 1, function(xx) clr2dens(dSup, xx)))
     
@@ -183,7 +183,7 @@ Regression_Analysis = function(predictors, EE = FALSE, dens, trsfm, dSup, CI, ne
     dens_fitted = t(apply(Y_hat, 1, function(xx) lqd2dens(xx, dSup = dSup)))
     
     # effect
-    Y_effect = as.matrix(cbind(rep(1, time = 9),new_df)) %*% t(Beta)
+    Y_effect = as.matrix(cbind(rep(1, time = nrow(new_df)),new_df)) %*% t(Beta)
     
     Y_effect_dens = t(apply(Y_effect, 1, function(xx) lqd2dens(xx, dSup = dSup)))
     
@@ -255,8 +255,8 @@ Regression_Analysis = function(predictors, EE = FALSE, dens, trsfm, dSup, CI, ne
     
     if (EE) {
     # EE effect plot
-    #pdf(file = paste("Reg_efct_", trsfm, "E.pdf", sep = ""), width = 6.75, height = 5)
-    png(file = paste("Reg_efct_", trsfm, "E.png", sep = ""), width = 640, height = 480)
+    pdf(file = paste("Reg_efct_", trsfm, "E.pdf", sep = ""), width = 6.75, height = 5)
+    #png(file = paste("Reg_efct_", trsfm, "E.png", sep = ""), width = 640, height = 480)
     
     par(mar = c(5, 5, 2, 10)+0.1)
     
@@ -277,23 +277,23 @@ Regression_Analysis = function(predictors, EE = FALSE, dens, trsfm, dSup, CI, ne
     
     labels = c("East. Europe", "Others")
     
-    legend("right",inset=c(-0.33,0), legend=sapply(labels, as.expression), col=c("#009B9F", "#EE3A8C"), lty=1, lwd=1.5, cex = 1.1)
+    legend("right",inset=c(-0.5,0), legend=sapply(labels, as.expression), col=c("#009B9F", "#EE3A8C"), lty=1, lwd=1.5, cex = 1)
     
     dev.off()
     }
     
     else {
       # effect plot
-      #pdf(file = paste("Reg_efct_", trsfm, ".pdf", sep = ""), width = 6.75, height = 5)
+      pdf(file = paste("Reg_efct_", trsfm, ".pdf", sep = ""), width = 6.75, height = 5)
       
-      png(file = paste("Reg_efct_", trsfm, ".png", sep = ""), width = 640, height = 480)
+      #png(file = paste("Reg_efct_", trsfm, ".png", sep = ""), width = 640, height = 480)
       
       par(mar = c(5, 5, 2, 9)+0.1)
       
       lb = range(as.vector(efct))[1]
       ub = range(as.vector(efct))[2]
       
-      do.call(matplot, c(list(type='n'), list(x=dSup[-c(1,n)]), list(main = "Effect Plot: uem"), list(y=seq(lb, ub, length.out = length(dSup[-c(1,n)]))), args))
+      do.call(matplot, c(list(type='n'), list(x=dSup[-c(1,n)]), list(main = "Effect Plot"), list(y=seq(lb, ub, length.out = length(dSup[-c(1,n)]))), args))
       
       grid()
       
@@ -303,15 +303,15 @@ Regression_Analysis = function(predictors, EE = FALSE, dens, trsfm, dSup, CI, ne
       
       labels = c("10%", "20%","30%","40%","50%","60%","70%","80%","90%")
       
-      legend("right",inset=c(-0.26,0), legend=sapply(labels, as.expression), col=effect_color, lty=1, lwd=1.5, cex = 1.4)
+      legend("right",inset=c(-0.4,0), legend=sapply(labels, as.expression), col=effect_color, lty=1, lwd=1.5, cex = 1.4)
       
       dev.off()
       
       # confidence band
       
       for( i in 1:9) {
-        #pdf(file = paste("Reg_efct", trsfm, "_CI_", i,"0th.pdf", sep = ""), width = 6.75, height = 5)
-        png(file = paste("Reg_efct", trsfm, "_CI_", i,"0th.png", sep = ""), width = 640, height = 480)
+        pdf(file = paste("Reg_efct", trsfm, "_CI_", i,"0th.pdf", sep = ""), width = 6.75, height = 5)
+        #png(file = paste("Reg_efct", trsfm, "_CI_", i,"0th.png", sep = ""), width = 640, height = 480)
         
         par(mar = c(5, 5, 2, 2)+0.1)
         
@@ -345,8 +345,8 @@ Regression_Analysis = function(predictors, EE = FALSE, dens, trsfm, dSup, CI, ne
     
     
     # fitted density plot
-    #pdf(file = paste("Reg_fitted_", trsfm, ".pdf", sep = ""), width = 6.75, height = 5)
-    png(file = paste("Reg_fitted_", trsfm, ".png", sep = ""), width = 640, height = 480)
+    pdf(file = paste("Reg_fitted_", trsfm, ".pdf", sep = ""), width = 6.75, height = 5)
+    #png(file = paste("Reg_fitted_", trsfm, ".png", sep = ""), width = 640, height = 480)
     
     par(mar = c(5, 5, 2, 9)+0.1)
     
@@ -364,7 +364,7 @@ Regression_Analysis = function(predictors, EE = FALSE, dens, trsfm, dSup, CI, ne
     
     labels = c("East. Europe", "Others")
     
-    legend("right",inset=c(-0.28,0), legend=sapply(labels, as.expression), col=c("#009B9F", "#EE3A8C"), lty=1, lwd=1.5, cex = 1)
+    legend("right",inset=c(-0.43,0), legend=sapply(labels, as.expression), col=c("#009B9F", "#EE3A8C"), lty=1, lwd=1.5, cex = 1)
     
     dev.off()
     
@@ -381,9 +381,7 @@ Regression_Analysis = function(predictors, EE = FALSE, dens, trsfm, dSup, CI, ne
   if(trsfm != "Frechet") {
     
     ### Beta ###
-    pdf(file = paste("Reg_", trsfm, "_beta0.pdf", sep = ""),
-        width = 6.75, # The width of the plot in inches
-        height = 5) # The height of the plot in inches
+    pdf(file = paste("Reg_", trsfm, "_beta0.pdf", sep = ""), width = 6.75, height = 5)
     
     par(mar = c(5, 5, 2, 2)+0.1)
     
@@ -395,9 +393,7 @@ Regression_Analysis = function(predictors, EE = FALSE, dens, trsfm, dSup, CI, ne
     
     dev.off()
     
-    pdf(file = paste("Reg_", trsfm, "_Beta.pdf", sep = ""),
-        width = 6.75, # The width of the plot in inches
-        height = 5) # The height of the plot in inches
+    pdf(file = paste("Reg_", trsfm, "_Beta.pdf", sep = ""), width = 6.75, height = 5)
     
     par(mar = c(5, 5, 2, 7)+0.1)
     
@@ -429,9 +425,7 @@ Regression_Analysis = function(predictors, EE = FALSE, dens, trsfm, dSup, CI, ne
         
         par(mar = c(5, 5, 2, 2)+0.1, xpd = FALSE)
         
-        pdf(file = paste("Reg_CI_",CI,"_", trsfm, "_beta", i-1, ".pdf", sep = ""),
-            width = 6.75, # The width of the plot in inches
-            height = 5) # The height of the plot in inches
+        pdf(file = paste("Reg_CI_",CI,"_", trsfm, "_beta", i-1, ".pdf", sep = ""), width = 6.75, height = 5)
         
         do.call(plot, c(list(type='n'), list(x=trsfmSup), list(y=seq(lb, ub, length.out = length(trsfmSup))), args))
         
@@ -451,8 +445,8 @@ Regression_Analysis = function(predictors, EE = FALSE, dens, trsfm, dSup, CI, ne
     if(CI == "bootstrap") {
       ### Bootstrap
       for(j in 1:q) {
-        #pdf(file = paste("Reg_CI_",CI,"_", trsfm, "_beta", j-1, ".pdf", sep = ""),width = 6.75, height = 5)
-        png(file = paste("Reg_CI_",CI,"_", trsfm, "_beta", j-1, ".png", sep = ""),width = 640, height = 480)
+        pdf(file = paste("Reg_CI_",CI,"_", trsfm, "_beta", j-1, ".pdf", sep = ""),width = 6.75, height = 5)
+        #png(file = paste("Reg_CI_",CI,"_", trsfm, "_beta", j-1, ".png", sep = ""),width = 640, height = 480)
         
         par(mar = c(5, 5, 2, 2)+0.1)
         
@@ -460,8 +454,7 @@ Regression_Analysis = function(predictors, EE = FALSE, dens, trsfm, dSup, CI, ne
         ub = range(as.vector(boot_Beta[,j,]))[2]
         
         do.call(matplot, c(list(type='n'), list(x=trsfmSup),list(main = bquote("Bootstrap Confidence Band:"~hat(beta)[.(j-1)])), list(y=seq(lb, ub, length.out = length(trsfmSup))), args))
-        
-        #matplot(trsfmSup, as.matrix(Beta[,j]), type = "n", ylab = "", xlab = "age", ylim = range(as.vector(boot_Beta[,j,])), cex.lab = 1.2, cex.axis=1.2)
+
         grid()
         matlines(trsfmSup, boot_Beta[,j,], col = "lightgrey")
         matlines(trsfmSup, as.matrix(Beta[,j]), col=c("red"), lty = 1, lwd = 3)
@@ -472,57 +465,66 @@ Regression_Analysis = function(predictors, EE = FALSE, dens, trsfm, dSup, CI, ne
     
     ### Effect Plot ###
     
-    args <- list(xlab="age", ylab="", main = "Effect Plot: inf", cex.lab = 1.2, cex.axis = 1.2)
+    args <- list(xlab="age", ylab="", cex.lab = 1.2, cex.axis = 1.2)
     
     # effect plot
-    #pdf(file = paste("Reg_efct_", trsfm, ".pdf", sep = ""), width = 6.75, height = 5)
-    png(file = paste("Reg_efct_", trsfm, ".png", sep = ""), width = 640, height = 480)
+    pdf(file = paste("Reg_efct_", trsfm, ".pdf", sep = ""), width = 6.75, height = 5)
+    #png(file = paste("Reg_efct_", trsfm, ".png", sep = ""), width = 640, height = 480)
     
     par(mar = c(5, 5, 2, 7)+0.1)
     
     lb = range(as.vector(Y_effect_dens))[1]
     ub = range(as.vector(Y_effect_dens))[2]
     
-    do.call(matplot, c(list(type='n'), list(x=dSup), list(y=seq(lb, ub, length.out = length(dSup))), args))
+    do.call(matplot, c(list(type='n'), list(main = "Effect Plot"), list(x=dSup), list(y=seq(lb, ub, length.out = length(dSup))), args))
     
     grid()
     
-    matlines(dSup, t(Y_effect_dens), lty = 1, col = effect_color, lwd = 1.5)
+    if (EE) {
+      matlines(dSup, t(Y_effect_dens), lty = 1, col = c("#009B9F", "#EE3A8C"), lwd = 1.2)
+      
+      par(xpd = TRUE)
+      
+      labels = c("East. Europe", "Others")
+      legend("right",inset=c(-0.3,0), legend=sapply(labels, as.expression), col=c("#009B9F", "#EE3A8C"), lty=1, lwd=1.5, cex = 0.75)
+    }
     
-    par(xpd = TRUE)
-    
-    labels = c("10%", "20%","30%","40%","50%","60%","70%","80%","90%")
-    
-    legend("right",inset=c(-0.19,0), legend=sapply(labels, as.expression), col=effect_color, lty=1, lwd=1.5, cex = 1)
-    
+    else {
+      matlines(dSup, t(Y_effect_dens), lty = 1, col = effect_color, lwd = 1.5)
+      
+      par(xpd = TRUE)
+      
+      labels = c("10%", "20%","30%","40%","50%","60%","70%","80%","90%")
+      legend("right",inset=c(-0.25,0), legend=sapply(labels, as.expression), col=effect_color, lty=1, lwd=1.5, cex = 1)
+    }
     dev.off()
     
     #############################################
-    # effect plot
-    pdf(file = paste("Reg_efct_legend.pdf", sep = ""), width = 6.75, height = 5)
+    # effect plot legend
+    #pdf(file = paste("Reg_efct_legend.pdf", sep = ""), width = 6.75, height = 5)
     
-    par(mar = c(5, 5, 2, 3)+0.1)
+    #par(mar = c(5, 5, 2, 3)+0.1)
     
-    plot(NULL ,xaxt='n',yaxt='n',bty='n',ylab='',xlab='', xlim=0:1, ylim=0:1)
+    #plot(NULL ,xaxt='n',yaxt='n',bty='n',ylab='',xlab='', xlim=0:1, ylim=0:1)
     
-    labels = c("10%", "20%","30%","40%","50%","60%","70%","80%","90%")
+    #labels = c("10%", "20%","30%","40%","50%","60%","70%","80%","90%")
 
-    legend("topleft", inset = c(0.3,0.18), legend=sapply(labels, as.expression), col=effect_color, lty=1, lwd=1.5, cex = 1.2, title = "Quantile")
+    #legend("topleft", inset = c(0.3,0.18), legend=sapply(labels, as.expression), col=effect_color, lty=1, lwd=1.5, cex = 1.2, title = "Quantile")
     
-    dev.off()
+    #dev.off()
     
     #############################################
     
     ### Fitted Densities ###
-    #pdf(file = paste("Reg_Fitted_dens_", trsfm, ".pdf", sep = ""), width = 6.75, height = 5)
-    png(file = paste("Reg_Fitted_dens_", trsfm, ".png", sep = ""), width = 640, height = 480)
+    pdf(file = paste("Reg_Fitted_dens_", trsfm, ".pdf", sep = ""), width = 6.75, height = 5)
+    #png(file = paste("Reg_Fitted_dens_", trsfm, ".png", sep = ""), width = 640, height = 480)
     
     par(mar = c(5, 5, 2, 8.8)+0.1)
     
     lb = range(as.vector(dens_fitted))[1]
     ub = range(as.vector(dens_fitted))[2]
     
-    do.call(matplot, c(list(type='n'), list(x=dSup), list(y=seq(lb, ub, length.out = length(dSup))), args))
+    do.call(matplot, c(list(type='n'), list(main = "Fitted Densities"), list(x=dSup), list(y=seq(lb, ub, length.out = length(dSup))), args))
     
     grid()
     
@@ -533,7 +535,8 @@ Regression_Analysis = function(predictors, EE = FALSE, dens, trsfm, dSup, CI, ne
     
     labels = c("East. Europe", "Others")
     
-    legend("right",inset=c(-0.425,0), legend=sapply(labels, as.expression), col=c("#009B9F", "#EE3A8C"), lty=1, lwd=1.5, cex = 1)
+    legend("right", inset=c(-0.425,0), legend=sapply(labels, as.expression), col=c("#009B9F", "#EE3A8C"), lty=1, lwd=1.5, cex = 1)
+    dev.off()
   }
   print(paste("clr R square: ", R2_clr, sep = ""))
   print(paste("Wasserstein R square: ", R2_wass, sep = ""))
